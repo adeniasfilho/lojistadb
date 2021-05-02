@@ -1,8 +1,8 @@
-var mysql = require("mysql");
+import { createConnection } from "mysql";
 //Classe LojistaDB
-class LojistaDB {
+class Lojistadb {
     static connect() {
-        var connection = mysql.createConnection({
+        var connection = createConnection({
             host : "localhost",
             user : "lojista",
             password : "lojista123",
@@ -22,7 +22,7 @@ class LojistaDB {
         connection.end();
     }
     static getLojistasByTipo(tipo, callback) {
-        let connection = LojistaDB.connect()
+        let connection = Lojistadb.connect()
         let sql = "select id,nomeFantasia,Endereco,Numero,CEP,Telefone,E-mail,tipo +"
         "+ from lojista where tipo = '" + tipo + "'";
         let query = connection.query(sql, function (error, results, fields) {
@@ -34,7 +34,7 @@ class LojistaDB {
     }
     //Retorna lista de lojistas
     static getLojistaById(id, callback) {
-        let connection = LojistaDB.connect()
+        let connection = Lojistadb.connect()
         let sql = "select * from lojista where id=?";
         let query = connection.query(sql, id, function (error, results, fields) {
             if(error) throw error;
@@ -100,4 +100,4 @@ class LojistaDB {
         connection.end();
     }
 };
-module.exports = LojistaDB;
+export default Lojistadb;
